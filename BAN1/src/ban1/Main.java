@@ -1,4 +1,3 @@
-
 package ban1;
 
 import java.sql.Connection;
@@ -7,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
-import ban1.*;
 
 
 public class Main {
@@ -23,7 +21,7 @@ public class Main {
             switch(opcao){
                 
                 case 1:
-                    
+                    new AnimalController().createAnimal(con);
                     break;
                     
                 case 2:
@@ -31,7 +29,7 @@ public class Main {
                     break;
                     
                 case 3:
-                    
+                    new AnimalController().listarAnimais(con);
                     break;
                     
                 case 4:
