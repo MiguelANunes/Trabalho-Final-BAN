@@ -8,8 +8,7 @@ public class Animal {
     private int codEspecie, codAnimal,codAnimalPai, codAnimalMae;
     private LocalDate dtnasAnimal;
 
-    public Animal(String nomeAnimal, int codEspecie, int codAnimal, int codAnimalPai, 
-            int codAnimalMae, LocalDate dtnasAnimal) {
+    public Animal(String nomeAnimal, int codEspecie, int codAnimal, int codAnimalPai, int codAnimalMae, LocalDate dtnasAnimal) {
         this.nomeAnimal = nomeAnimal;
         this.codEspecie = codEspecie;
         this.codAnimal = codAnimal;
