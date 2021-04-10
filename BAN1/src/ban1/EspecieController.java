@@ -1,11 +1,5 @@
 package ban1;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Scanner;
-
 public class EspecieController {
     
     public void createEspecie(Connection C) throws SQLException{
@@ -30,7 +24,5 @@ public class EspecieController {
     
     public void ListarEspecies(){
         // Precisa do Model
-        
-        // mais uma coisa
     }
 }
