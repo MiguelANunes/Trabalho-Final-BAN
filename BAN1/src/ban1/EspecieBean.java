@@ -1,8 +1,8 @@
-
 package ban1;
 
 public class EspecieBean {
-    private int codespecie, expectativaespecie;
+    private int codespecie;
+    private int expectativaespecie;
     private String nomeespecie;
 
     public EspecieBean(int codespecie, int expectativaespecie, String nomeespecie) {
@@ -35,9 +35,26 @@ public class EspecieBean {
         this.nomeespecie = nomeespecie;
     }
     
-    
-    
-    
-    
-    
+    @Override
+    public String toString() {
+        return "EspecieBean{" + "codespecie=" + codespecie + ", expectativaespecie=" + expectativaespecie + ", nomeespecie=" + nomeespecie + '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EspecieBean other = (EspecieBean) obj;
+        if (this.codespecie != other.codespecie) {
+            return false;
+        }
+        return true;
+    }
 }
