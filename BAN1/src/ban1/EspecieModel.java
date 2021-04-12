@@ -29,7 +29,7 @@ public class EspecieModel {
         ResultSet resultado = st.executeQuery("select codespecie, nomeespecie, expectivaespecie");
         
         while(resultado.next()){
-//            retorno.add(new EspecieBean(resultado.getInt(1), resultado.getString(2), resultado.getInt(3)));
+            retorno.add(new EspecieBean(resultado.getInt(1), resultado.getInt(3), resultado.getString(2)));
         }
         
         return retorno;
