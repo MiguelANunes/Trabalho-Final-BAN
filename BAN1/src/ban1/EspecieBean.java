@@ -52,9 +52,6 @@ public class EspecieBean {
             return false;
         }
         final EspecieBean other = (EspecieBean) obj;
-        if (this.codespecie != other.codespecie) {
-            return false;
-        }
-        return true;
+        return this.codespecie == other.codespecie;
     }
 }

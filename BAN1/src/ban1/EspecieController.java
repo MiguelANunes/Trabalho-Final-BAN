@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 public class EspecieController {
     
-    public void createEspecie(Connection C) throws SQLException{
+    public static void createEspecie(Connection C) throws SQLException{
         
         Scanner sc = new Scanner(System.in);
         System.out.println("Insira as Informações da Espécie:");
@@ -26,13 +26,15 @@ public class EspecieController {
         int expectativa = sc.nextInt();
         
         EspecieBean EB = new EspecieBean(codE, expectativa, nome);
-        // EspecieModel.create(EB,C);
+         EspecieModel.create(EB,C);
         System.out.println("Especie Adicionada com Sucesso !");
     }
     
-    public void ListarEspecies(){
-        // Precisa do Model
-        
-        // mais uma coisa
+    public static  void ListarEspecies(Connection C) throws SQLException{
+        HashSet especies = EspecieModel.listAll(C);
+        Iterator<EspecieBean> it = especies.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next().toString());
+        }
     }
 }

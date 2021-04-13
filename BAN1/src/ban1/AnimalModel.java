@@ -9,12 +9,11 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
 public class AnimalModel {
     static void create(AnimalBean ab, Connection con) throws SQLException{
         PreparedStatement st;
-        st = con.prepareStatement("INSERT INTO animais (nomeanimal, codespecie, codanimal,codanimalpai,codanimalmae,dtnasanimal)" + "VALUES (?,?,?,?,?,?)");
+        st = con.prepareStatement("INSERT INTO animais (nomeanimal, codespecie, codanimal, codanimalpai, codanimalmae, dtnasanimal)" 
+                + "VALUES (?,?,?,?,?,?)");
         st.setString(1, ab.getNomeAnimal());
         st.setInt(2, ab.getCodEspecie());
         st.setInt(3, ab.getCodAnimal());
@@ -25,7 +24,6 @@ public class AnimalModel {
         st.close();
     }
     
-    
     static HashSet listAll(Connection con) throws SQLException{
         Statement st;
         HashSet list = new HashSet();
@@ -34,9 +32,8 @@ public class AnimalModel {
         ResultSet result = st.executeQuery(sql);
 
         while(result.next()){
-            list.add(new AnimalBean(result.getString(1),result.getInt(2),result.getInt(3),result.getInt(4),result.getInt(5),result.getString(6)));
+            list.add(new AnimalBean(result.getString(1),result.getInt(2),result.getInt(3),result.getInt(4),result.getInt(5),result.getDate(6)));
         }
-        
         return list;
     }
     

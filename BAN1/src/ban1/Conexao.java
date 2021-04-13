@@ -1,3 +1,4 @@
+package ban1;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,8 +25,8 @@ public class Conexao {
     public Conexao() {
         String driver = "org.postgresql.Driver";
         String user = "postgres";
-        String senha = "Nysk0zbe#321";
-        String url = "jdbc:postgresql://localhost:5432/Zoo";
+        String senha = "postgres";
+        String url = "jdbc:postgresql://localhost:5432/Zoologico";
 
         try {
             Class.forName(driver);

@@ -1,14 +1,13 @@
 package ban1;
-import java.time.LocalDate;
-
+import java.sql.Date;
 
 
 public class AnimalBean {
     private String nomeAnimal;
     private int codEspecie, codAnimal,codAnimalPai, codAnimalMae;
-    private LocalDate dtnasAnimal;
+    private Date dtnasAnimal;
 
-    public AnimalBean(String nomeAnimal, int codEspecie, int codAnimal, int codAnimalPai, int codAnimalMae, LocalDate dtnasAnimal) {
+    public AnimalBean(String nomeAnimal, int codEspecie, int codAnimal, int codAnimalPai, int codAnimalMae, Date dtnasAnimal) {
         this.nomeAnimal = nomeAnimal;
         this.codEspecie = codEspecie;
         this.codAnimal = codAnimal;
@@ -37,7 +36,7 @@ public class AnimalBean {
         return codAnimalMae;
     }
 
-    public LocalDate getDtnasAnimal() {
+    public Date getDtnasAnimal() {
         return dtnasAnimal;
     }
 
@@ -61,7 +60,7 @@ public class AnimalBean {
         this.codAnimalMae = codAnimalMae;
     }
 
-    public void setDtnasAnimal(LocalDate dtnasAnimal) {
+    public void setDtnasAnimal(Date dtnasAnimal) {
         this.dtnasAnimal = dtnasAnimal;
     }
     
