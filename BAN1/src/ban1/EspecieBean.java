@@ -9,9 +9,6 @@ public class EspecieBean {
         this.codespecie = codespecie;
         this.expectativaespecie = expectativaespecie;
         this.nomeespecie = nomeespecie;
-        /*
-        forçando essa porra desse pull request
-        */
     }
 
     public int getCodespecie() {
@@ -55,9 +52,6 @@ public class EspecieBean {
             return false;
         }
         final EspecieBean other = (EspecieBean) obj;
-        if (this.codespecie != other.codespecie) {
-            return false;
-        }
-        return true;
+        return this.codespecie == other.codespecie;
     }
 }

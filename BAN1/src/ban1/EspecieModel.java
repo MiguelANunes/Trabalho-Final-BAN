@@ -26,12 +26,11 @@ public class EspecieModel {
         Statement st;
         HashSet retorno = new HashSet();
         st = C.createStatement();
-        ResultSet resultado = st.executeQuery("select codespecie, nomeespecie, expectivaespecie");
+        ResultSet resultado = st.executeQuery("select codespecie, nomeespecie, expectivaespecie from especies");
         
         while(resultado.next()){
             retorno.add(new EspecieBean(resultado.getInt(1), resultado.getInt(3), resultado.getString(2)));
         }
-        
         return retorno;
     }
     
