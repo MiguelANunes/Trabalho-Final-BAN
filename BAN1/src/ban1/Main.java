@@ -87,13 +87,18 @@ public class Main {
             System.out.println("1: codespecie");
             System.out.println("2: nomeespecie");
             System.out.println("3: expectivaespecie");
-            System.out.println("4: Pular (só selecione essa opção se não quer nenhum atributo de Espécie)");
+            System.out.println("4: * (Tudo dessa tabela)");
+            System.out.println("5: Pular (só selecione essa opção se não quer nenhum atributo de Espécie)");
             opcao = sc.nextInt();
             
             if(opcao == 1) atributos += "especies.codespecie";
             if(opcao == 2) atributos += "nomeespecie";
             if(opcao == 3) atributos += "expectivaespecie";
-            if(opcao == 4) break;
+            if(opcao == 4){
+                atributos += "especies.*";
+                break;
+            }
+            if(opcao == 5) break;
             
             System.out.println("Digite -1 para sair e 4 para escolher mais um atributo");
             opcao = sc.nextInt();
@@ -115,7 +120,8 @@ public class Main {
             System.out.println("4: codanimalpai");
             System.out.println("5: codanimalmae");
             System.out.println("6: dtnasanimal");
-            System.out.println("7: Pular (só selecione essa opção se não quer nenhum atributo de Animal)");
+            System.out.println("7: * (Tudo dessa tabela)");
+            System.out.println("8: Pular (só selecione essa opção se não quer nenhum atributo de Animal)");
             opcao = sc.nextInt();
             
             if(opcao == 1) atributos += "nomeanimal";
@@ -124,7 +130,11 @@ public class Main {
             if(opcao == 4) atributos += "codanimalpai";
             if(opcao == 5) atributos += "codanimalmae";
             if(opcao == 6) atributos += "dtnasanimal";
-            if(opcao == 7) break;
+            if(opcao == 6){
+                atributos += "animais.*";
+                break;
+            }
+            if(opcao == 8) break;
             
             System.out.println("Digite -1 para sair e 8 para escolher mais um atributo");
             opcao = sc.nextInt();
@@ -144,59 +154,30 @@ public class Main {
         tipoJuncao = opcao == 1 ? " natural join " : " join ";
         
         if(opcao == 2){
-            
             natural = false;
-            condicao = " on ";
             
-            System.out.println("Especifique a Condição da Junção");
-            System.out.println("(Será sempre da forma <attrEspecies> <operador> <attrAnimal>)");
-            System.out.println("\tAtributos de Especie:");
-            System.out.println("\t1: codespecie");
-            System.out.println("\t2: nomeespecie");
-            System.out.println("\t3: expectivaespecie");
-            
-            opcao = sc.nextInt();
-            if(opcao == 1) condicao += "especies.codespecie";
-            if(opcao == 2) condicao += "nomeespecie";
-            if(opcao == 3) condicao += "expectivaespecie";
-            
-            System.out.println("\tOperadores: ");
-            System.out.println("\t1: = ");
-            System.out.println("\t2: > ");
-            System.out.println("\t3: >= ");
-            System.out.println("\t4: < ");
-            System.out.println("\t5: <= ");
-            
-            opcao = sc.nextInt();
-            if(opcao == 1) condicao += " = ";
-            if(opcao == 2) condicao += " > ";
-            if(opcao == 3) condicao += " >= ";
-            if(opcao == 4) condicao += " < ";
-            if(opcao == 5) condicao += " <= ";
-            
-            System.out.println("\tAtributos de Especie:");
-            System.out.println("\t1: nomeanimal");
-            System.out.println("\t2: codespecie");
-            System.out.println("\t3: codanimal");
-            System.out.println("\t4: codanimalpai");
-            System.out.println("\t5: codanimalmae");
-            System.out.println("\t6: dtnasanimal");
-            
-            opcao = sc.nextInt();
-            if(opcao == 1) condicao += "nomeanimal";
-            if(opcao == 2) condicao += "animais.codespecie";
-            if(opcao == 3) condicao += "codanimal";
-            if(opcao == 4) condicao += "codanimalpai";
-            if(opcao == 5) condicao += "codanimalmae";
-            if(opcao == 6) condicao += "dtnasanimal";
-
+            System.out.println("Digite a Expressão da Condição de Junção (isto é, sem o \"on\"): ");
+            System.out.println("Atibutos: ");
+            System.out.println("\t[Especie] codespecie");
+            System.out.println("\t[Especie] nomeespecie");
+            System.out.println("\t[Especie] expectivaespecie");
+            System.out.println("\t[Animais] nomeanimal");
+            System.out.println("\t[Animais] codespecie");
+            System.out.println("\t[Animais] codanimal");
+            System.out.println("\t[Animais] codanimalpai");
+            System.out.println("\t[Animais] codanimalmae");
+            System.out.println("\t[Animais] dtnasanimal");
+            System.out.print("> ");
+            condicao = sc.nextLine();
         }
         
         System.out.println("É uma Junção à Esquerda ?");
         System.out.println("1: Sim\n2: Não");
         opcao = sc.nextInt();
+        boolean outerJoin = false;
         
         if(opcao == 1){
+            outerJoin = true;
             if(tipoJuncao.trim().length() == 4){ // comprimento == 4 -> tipoJunção = Join
                 tipoJuncao = " left join ";
             }else{
@@ -209,6 +190,7 @@ public class Main {
             opcao = sc.nextInt();
             
             if(opcao == 1){
+                outerJoin = true;
                 if(tipoJuncao.trim().length() == 4){ // comprimento == 4 -> tipoJunção = Join
                     tipoJuncao = " right join ";
                 }else{
@@ -217,13 +199,16 @@ public class Main {
             }
         }
         
-        System.out.println("Quem está à Esquerda ?");
-        System.out.println("(Sim, isso é irrelevante caso não seja uma consulta externa, mas é mais fácil fazer desse jeito)");
-        System.out.println("1: Especie\n2: Animal");
-        opcao = sc.nextInt();
-        
-        tipoJuncao = opcao == 1 ? "especies" + tipoJuncao + "animais" : "animais" + tipoJuncao + "especies";
-        tipoJuncao = natural ? tipoJuncao : tipoJuncao + condicao;
+        if(outerJoin){
+            System.out.println("Quem está à Esquerda ?");
+            System.out.println("1: Especie\n2: Animal");
+            opcao = sc.nextInt();
+
+            tipoJuncao = opcao == 1 ? "especies" + tipoJuncao + "animais" : "animais" + tipoJuncao + "especies";
+            tipoJuncao = natural ? tipoJuncao : tipoJuncao + condicao;    
+        }else{
+            tipoJuncao = "especies" + tipoJuncao + "animais";
+        }
         
         String where = "";
         boolean temWhere = false;
@@ -232,47 +217,22 @@ public class Main {
         System.out.println("1: Sim\n2: Não");
         opcao = sc.nextInt();
         
-        if(opcao == 1){ // fucking kill me
+        if(opcao == 1){
             temWhere = true;
-            System.out.println("Selecione o atributo relevante: ");
-            System.out.println("1: [Especie] codespecie");
-            System.out.println("2: [Especie] nomeespecie");
-            System.out.println("3: [Especie] expectivaespecie");
-            System.out.println("4: [Animais] nomeanimal");
-            System.out.println("5: [Animais] codespecie");
-            System.out.println("6: [Animais] codanimal");
-            System.out.println("7: [Animais] codanimalpai");
-            System.out.println("8: [Animais] codanimalmae");
-            System.out.println("9: [Animais] dtnasanimal");
-            opcao = sc.nextInt();
             
-            if(opcao == 1) where += "especies.codespecie";
-            if(opcao == 2) where += "nomeespecie";
-            if(opcao == 3) where += "expectivaespecie";
-            if(opcao == 4) where += "nomeanimal";
-            if(opcao == 5) where += "codanimal";
-            if(opcao == 5) where += "animais.codespecie";
-            if(opcao == 7) where += "codanimalpai";
-            if(opcao == 8) where += "codanimalmae";
-            if(opcao == 9) where += "dtnasanimal";
-            
-            System.out.println("Selecione o Operador: ");
-            System.out.println("1: = ");
-            System.out.println("2: > ");
-            System.out.println("3: >= ");
-            System.out.println("4: < ");
-            System.out.println("5: <= ");
-            
-            opcao = sc.nextInt();
-            if(opcao == 1) where += " = ";
-            if(opcao == 2) where += " > ";
-            if(opcao == 3) where += " >= ";
-            if(opcao == 4) where += " < ";
-            if(opcao == 5) where += " <= ";
-            
-            System.out.println("Digite o valor que será comparado: ");
-            System.out.println("(Caso queria comparar com um atributo, escreva <nomeTabela>.<nomeAtributo>)");
-            where += sc.nextLine();
+            System.out.println("Digite a Expressão da Cláusula where (isto é, sem o \"where\"): ");
+            System.out.println("Atibutos: ");
+            System.out.println("\t[Especie] codespecie");
+            System.out.println("\t[Especie] nomeespecie");
+            System.out.println("\t[Especie] expectivaespecie");
+            System.out.println("\t[Animais] nomeanimal");
+            System.out.println("\t[Animais] codespecie");
+            System.out.println("\t[Animais] codanimal");
+            System.out.println("\t[Animais] codanimalpai");
+            System.out.println("\t[Animais] codanimalmae");
+            System.out.println("\t[Animais] dtnasanimal");
+            System.out.print("> ");
+            where = sc.nextLine();
         }
         
         String consulta;
