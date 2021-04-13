@@ -2,3 +2,4 @@
 *.jar
 *.properties
 *.xml
+/BAN1/dist/

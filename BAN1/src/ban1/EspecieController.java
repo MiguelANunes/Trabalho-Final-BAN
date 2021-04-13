@@ -16,14 +16,17 @@ public class EspecieController {
         System.out.println("Insira as Informações da Espécie:");
         System.out.print("Código: ");
         int codE = sc.nextInt();
+        sc.nextLine();
         
         System.out.println("");
         System.out.print("Nome: ");
         String nome = sc.nextLine();
+        sc.nextLine();
         
         System.out.println("");
         System.out.print("Expectativa de Vida: ");
         int expectativa = sc.nextInt();
+        sc.nextLine();
         
         EspecieBean EB = new EspecieBean(codE, expectativa, nome);
          EspecieModel.create(EB,C);

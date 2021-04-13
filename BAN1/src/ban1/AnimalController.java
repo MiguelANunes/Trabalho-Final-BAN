@@ -16,24 +16,35 @@ public class AnimalController {
         System.out.println("Nome: ");
         String nome = sc.nextLine();
         sc.nextLine();
+        
         System.out.println("Código da Espécie: ");
         int codEspecie = sc.nextInt();
         sc.nextLine();
+        
         System.out.println("Código do Animal: ");
         int codAnimal = sc.nextInt();
         sc.nextLine();
+        
         System.out.println("Código do Animal Pai (-1 para null): ");
-        int codAnimalPai = sc.nextInt();
+        Integer codAnimalPai = sc.nextInt();
         codAnimalPai = codAnimalPai == -1 ? null : codAnimalPai;
         sc.nextLine();
+        
         System.out.println("Código do Animal Mãe (-1 para null): ");
-        int codAnimalMae = sc.nextInt();
+        Integer codAnimalMae = sc.nextInt();
         codAnimalMae = codAnimalMae == -1 ? null : codAnimalMae;
         sc.nextLine();
-        System.out.println("Data de nascimento do animal (Use yyyy/mm/dd): ");
+        
+        System.out.println("Data de nascimento do animal (Use yyyy-mm-dd): ");
         String dtnasAnimalStr = sc.nextLine();
         Date dtnasAnimal = Date.valueOf(dtnasAnimalStr);
         
+        System.out.println(nome);
+        System.out.println(codEspecie);
+        System.out.println(codAnimal);
+        System.out.println(codAnimalPai);
+        System.out.println(codAnimalMae);
+//        System.out.println(codEspecie);
         AnimalBean ab = new AnimalBean(nome,codEspecie,codAnimal,codAnimalPai,codAnimalMae,dtnasAnimal);
         AnimalModel.create(ab,con);
         System.out.println("Animal criado com sucesso!");

@@ -25,7 +25,7 @@ public class Conexao {
     public Conexao() {
         String driver = "org.postgresql.Driver";
         String user = "postgres";
-        String senha = "postgres";
+        String senha = "senhapostgres";
         String url = "jdbc:postgresql://localhost:5432/Zoologico";
 
         try {

@@ -12,14 +12,25 @@ import java.util.logging.Logger;
 public class AnimalModel {
     static void create(AnimalBean ab, Connection con) throws SQLException{
         PreparedStatement st;
-        st = con.prepareStatement("INSERT INTO animais (nomeanimal, codespecie, codanimal, codanimalpai, codanimalmae, dtnasanimal)" 
+        st = con.prepareStatement("INSERT INTO animais (nomeanimal, codespecie, codanimal, codanimalpai, codanimalmae, dtnascanimal)" 
                 + "VALUES (?,?,?,?,?,?)");
         st.setString(1, ab.getNomeAnimal());
         st.setInt(2, ab.getCodEspecie());
         st.setInt(3, ab.getCodAnimal());
-        st.setInt(4, ab.getCodAnimalPai());
-        st.setInt(4, ab.getCodAnimalMae());
-        st.setString(5, ab.getNomeAnimal());
+        
+        if(ab.getCodAnimalPai() == null){
+            st.setNull(4, java.sql.Types.INTEGER);
+        }else{
+            st.setInt(4, ab.getCodAnimalPai().intValue());
+        }
+        
+        if(ab.getCodAnimalMae() == null){
+            st.setNull(5, java.sql.Types.INTEGER);
+        }else{
+            st.setInt(5, ab.getCodAnimalMae().intValue());
+        }
+        
+        st.setDate(6, ab.getDtnasAnimal());
         st.execute();
         st.close();
     }
@@ -28,7 +39,7 @@ public class AnimalModel {
         Statement st;
         HashSet list = new HashSet();
         st = con.createStatement();
-        String sql = "Select nomeanimal, codespecie, codanimal, codanimalpai, codanimalmae, dtnasanimal FROM animais";
+        String sql = "Select nomeanimal, codespecie, codanimal, codanimalpai, codanimalmae, dtnascanimal FROM animais";
         ResultSet result = st.executeQuery(sql);
 
         while(result.next()){

@@ -13,7 +13,7 @@ public class EspecieModel {
     
     public static void create(EspecieBean EB, Connection C) throws SQLException{
         PreparedStatement st;
-        st = C.prepareStatement("insert into especies (codespecie, nomeespecie, expectivaespecie)" + 
+        st = C.prepareStatement("insert into especies (codespecie, nomeespecie, expectativaespecie)" + 
                 "values (?,?,?)");
         st.setInt(1, EB.getCodespecie());
         st.setString(2, EB.getNomeespecie());
@@ -26,7 +26,7 @@ public class EspecieModel {
         Statement st;
         HashSet retorno = new HashSet();
         st = C.createStatement();
-        ResultSet resultado = st.executeQuery("select codespecie, nomeespecie, expectivaespecie from especies");
+        ResultSet resultado = st.executeQuery("select codespecie, nomeespecie, expectativaespecie from especies");
         
         while(resultado.next()){
             retorno.add(new EspecieBean(resultado.getInt(1), resultado.getInt(3), resultado.getString(2)));

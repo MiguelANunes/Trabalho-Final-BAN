@@ -4,10 +4,11 @@ import java.sql.Date;
 
 public class AnimalBean {
     private String nomeAnimal;
-    private int codEspecie, codAnimal,codAnimalPai, codAnimalMae;
+    private int codEspecie, codAnimal;
+    Integer codAnimalPai, codAnimalMae;
     private Date dtnasAnimal;
 
-    public AnimalBean(String nomeAnimal, int codEspecie, int codAnimal, int codAnimalPai, int codAnimalMae, Date dtnasAnimal) {
+    public AnimalBean(String nomeAnimal, int codEspecie, int codAnimal, Integer codAnimalPai, Integer codAnimalMae, Date dtnasAnimal) {
         this.nomeAnimal = nomeAnimal;
         this.codEspecie = codEspecie;
         this.codAnimal = codAnimal;
@@ -28,11 +29,11 @@ public class AnimalBean {
         return codAnimal;
     }
 
-    public int getCodAnimalPai() {
+    public Integer getCodAnimalPai() {
         return codAnimalPai;
     }
 
-    public int getCodAnimalMae() {
+    public Integer getCodAnimalMae() {
         return codAnimalMae;
     }
 
@@ -62,6 +63,11 @@ public class AnimalBean {
 
     public void setDtnasAnimal(Date dtnasAnimal) {
         this.dtnasAnimal = dtnasAnimal;
+    }
+
+    @Override
+    public String toString() {
+        return "AnimalBean{" + "nomeAnimal=" + nomeAnimal + ", codEspecie=" + codEspecie + ", codAnimal=" + codAnimal + ", codAnimalPai=" + codAnimalPai + ", codAnimalMae=" + codAnimalMae + ", dtnasAnimal=" + dtnasAnimal + '}';
     }
     
     

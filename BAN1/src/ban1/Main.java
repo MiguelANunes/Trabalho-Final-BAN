@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.util.HashSet;
 import ban1.*;
+import java.lang.reflect.Field;
 
 
 public class Main {
@@ -38,11 +40,12 @@ public class Main {
                     break;
                     
                 case 5:
+                    System.out.println("Executando consulta:\n\tselect * from especies natural left join animais");
                     juncao(con);
                     break;
                     
                 case 6:
-                    
+                    consulta(con);
                     break;
                 
             }
@@ -63,7 +66,7 @@ public class Main {
         System.out.println("3 - Listar Animais");
         System.out.println("4 - Listar Especies");
         System.out.println("5 - Listar Junção entre Especies e Animais");
-        System.out.println("6 - Listar Subconsulta e/ou funcao de agregacao"); // mudar isso eventualmente
+        System.out.println("6 - Listar Consulta com subconsulta e funcao de agregacao");
         System.out.println("Escreva qualquer outro número para sair");
         System.out.println("Sua opcao: ");
         Scanner sc = new Scanner(System.in);
@@ -74,9 +77,29 @@ public class Main {
     private static void juncao(Connection C) throws SQLException{
         
         Statement st = C.createStatement();
-        String atributos = "";
+        String consulta = "";
         int opcao = 0;
         Scanner sc = new Scanner(System.in);
+        
+        consulta = "select * from especies natural left join animais";
+        
+        ResultSet resultado = st.executeQuery(consulta);
+        EspecieBean E;
+        AnimalBean A;
+        
+        while(resultado.next()){
+            E = new EspecieBean(resultado.getInt(1), resultado.getInt(3), resultado.getString(2));
+            A = new AnimalBean(resultado.getString(4),resultado.getInt(1),resultado.getInt(5),new Integer(resultado.getInt(6)),
+                    new Integer(resultado.getInt(7)),resultado.getDate(8));
+            System.out.println(E.toString()+A.toString());
+        }
+        
+        
+        /* 
+        
+        
+        Temos aqui um ótimo exemplo de overthinking e de complexidade desnecessária
+        
         
         do{ // Sim, esses prints de atributos poderiam estar dentro de uma função, mas não tenho saco de fazer isso
             // Related: https://en.wikipedia.org/wiki/Sunk_cost
@@ -199,12 +222,15 @@ public class Main {
             }
         }
         
+        boolean especiesnaEsquerda = true;
         if(outerJoin){
             System.out.println("Quem está à Esquerda ?");
             System.out.println("1: Especie\n2: Animal");
             opcao = sc.nextInt();
-
+            
+            especiesnaEsquerda = opcao == 1;
             tipoJuncao = opcao == 1 ? "especies" + tipoJuncao + "animais" : "animais" + tipoJuncao + "especies";
+            
             tipoJuncao = natural ? tipoJuncao : tipoJuncao + condicao;    
         }else{
             tipoJuncao = "especies" + tipoJuncao + "animais";
@@ -240,6 +266,36 @@ public class Main {
                              : "select " + atributos + " from " + tipoJuncao ;
         
         ResultSet resultado = st.executeQuery(consulta);
+        HashSet listaRetorno = new HashSet();
+        int tamanhoTabela = 0;
+        
+        resultado.last();
+        tamanhoTabela = resultado.getRow();
+        resultado.beforeFirst();
+        
+        String nomeColuna = "";
+        Field campo;
+        
+        while(resultado.next()){
+        
+        }*/
     }
     
+    private static void consulta(Connection C) throws SQLException{
+        Statement st = C.createStatement();
+        String consulta = "";
+        int opcao = 0;
+        Scanner sc = new Scanner(System.in);
+        
+        consulta = "select codespecie, count(*) from especies natural left join  (select * from animais a1 where a1.codanimalpai is not null or a1.codanimalmae is not null) as a1 group by codespecie order by codespecie";
+        // não sei como o SQL ia lidar com os \n, então deixei assim mesmo
+        
+        ResultSet resultado = st.executeQuery(consulta);
+        
+        while(resultado.next()){
+            System.out.print(resultado.getInt(1));
+            System.out.print(" | ");
+            System.out.println(resultado.getInt(2));
+        }
+    }
 }
