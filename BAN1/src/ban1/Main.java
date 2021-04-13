@@ -78,7 +78,8 @@ public class Main {
         int opcao = 0;
         Scanner sc = new Scanner(System.in);
         
-        do{
+        do{ // Sim, esses prints de atributos poderiam estar dentro de uma função, mas não tenho saco de fazer isso
+            // Related: https://en.wikipedia.org/wiki/Sunk_cost
             
             System.out.println("Selecione os atributos da Classe Espécie que devem aparecer na Junção:");
             // se repetir atributos provavelmente vai dar problema
@@ -155,7 +156,7 @@ public class Main {
             System.out.println("\t3: expectivaespecie");
             
             opcao = sc.nextInt();
-            if(opcao == 1) condicao += "codespecie";
+            if(opcao == 1) condicao += "especies.codespecie";
             if(opcao == 2) condicao += "nomeespecie";
             if(opcao == 3) condicao += "expectivaespecie";
             
@@ -175,17 +176,19 @@ public class Main {
             
             System.out.println("\tAtributos de Especie:");
             System.out.println("\t1: nomeanimal");
-            System.out.println("\t2: codanimal");
-            System.out.println("\t3: codanimalpai");
-            System.out.println("\t4: codanimalmae");
-            System.out.println("\t5: dtnasanimal");
+            System.out.println("\t2: codespecie");
+            System.out.println("\t3: codanimal");
+            System.out.println("\t4: codanimalpai");
+            System.out.println("\t5: codanimalmae");
+            System.out.println("\t6: dtnasanimal");
             
             opcao = sc.nextInt();
             if(opcao == 1) condicao += "nomeanimal";
-            if(opcao == 2) condicao += "codanimal";
-            if(opcao == 3) condicao += "codanimalpai";
-            if(opcao == 4) condicao += "codanimalmae";
-            if(opcao == 5) condicao += "dtnasanimal";
+            if(opcao == 2) condicao += "animais.codespecie";
+            if(opcao == 3) condicao += "codanimal";
+            if(opcao == 4) condicao += "codanimalpai";
+            if(opcao == 5) condicao += "codanimalmae";
+            if(opcao == 6) condicao += "dtnasanimal";
 
         }
         
@@ -222,13 +225,61 @@ public class Main {
         tipoJuncao = opcao == 1 ? "especies" + tipoJuncao + "animais" : "animais" + tipoJuncao + "especies";
         tipoJuncao = natural ? tipoJuncao : tipoJuncao + condicao;
         
-        /*
-        Cláusula where
-        */
+        String where = "";
+        boolean temWhere = false;
+        
+        System.out.println("Adicionar uma cláusula where ?");
+        System.out.println("1: Sim\n2: Não");
+        opcao = sc.nextInt();
+        
+        if(opcao == 1){ // fucking kill me
+            temWhere = true;
+            System.out.println("Selecione o atributo relevante: ");
+            System.out.println("1: [Especie] codespecie");
+            System.out.println("2: [Especie] nomeespecie");
+            System.out.println("3: [Especie] expectivaespecie");
+            System.out.println("4: [Animais] nomeanimal");
+            System.out.println("5: [Animais] codespecie");
+            System.out.println("6: [Animais] codanimal");
+            System.out.println("7: [Animais] codanimalpai");
+            System.out.println("8: [Animais] codanimalmae");
+            System.out.println("9: [Animais] dtnasanimal");
+            opcao = sc.nextInt();
+            
+            if(opcao == 1) where += "especies.codespecie";
+            if(opcao == 2) where += "nomeespecie";
+            if(opcao == 3) where += "expectivaespecie";
+            if(opcao == 4) where += "nomeanimal";
+            if(opcao == 5) where += "codanimal";
+            if(opcao == 5) where += "animais.codespecie";
+            if(opcao == 7) where += "codanimalpai";
+            if(opcao == 8) where += "codanimalmae";
+            if(opcao == 9) where += "dtnasanimal";
+            
+            System.out.println("Selecione o Operador: ");
+            System.out.println("1: = ");
+            System.out.println("2: > ");
+            System.out.println("3: >= ");
+            System.out.println("4: < ");
+            System.out.println("5: <= ");
+            
+            opcao = sc.nextInt();
+            if(opcao == 1) where += " = ";
+            if(opcao == 2) where += " > ";
+            if(opcao == 3) where += " >= ";
+            if(opcao == 4) where += " < ";
+            if(opcao == 5) where += " <= ";
+            
+            System.out.println("Digite o valor que será comparado: ");
+            System.out.println("(Caso queria comparar com um atributo, escreva <nomeTabela>.<nomeAtributo>)");
+            where += sc.nextLine();
+        }
         
         String consulta;
-        consulta = "select " + atributos + " from " + tipoJuncao ;
+        consulta =  temWhere ? "select " + atributos + " from " + tipoJuncao + " where " + where 
+                             : "select " + atributos + " from " + tipoJuncao ;
         
+        ResultSet resultado = st.executeQuery(consulta);
     }
     
 }
